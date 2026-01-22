@@ -3,9 +3,9 @@ import { FiFile, FiMoreVertical } from 'react-icons/fi'
 
 const FileCard = () => {
   const files = [
-    { name: 'Miro - Product Analytics and Statistics', type: 'miro', colorClass: 'bg-yellow-100 dark:bg-yellow-900/30', iconClass: 'text-yellow-600 dark:text-yellow-400' },
-    { name: 'Figma - UX Research', type: 'figma', colorClass: 'bg-purple-100 dark:bg-purple-900/30', iconClass: 'text-purple-600 dark:text-purple-400' },
-    { name: 'R2 Strategic Goals & Objectives.pdf', type: 'pdf', colorClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400' },
+    { name: 'GST Return - GSTR-3B (March 2025).pdf', type: 'gst', colorClass: 'bg-yellow-100 dark:bg-yellow-900/30', iconClass: 'text-yellow-600 dark:text-yellow-400' },
+    { name: 'MSME Registration Certificate.pdf', type: 'msme', colorClass: 'bg-purple-100 dark:bg-purple-900/30', iconClass: 'text-purple-600 dark:text-purple-400' },
+    { name: 'TDS Compliance Form - Q4 2024.pdf', type: 'tds', colorClass: 'bg-red-100 dark:bg-red-900/30', iconClass: 'text-red-600 dark:text-red-400' },
   ]
 
   return (

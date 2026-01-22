@@ -12,7 +12,7 @@ const WelcomeCard = () => {
           Welcome, Business Owner! 👋
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          How can I help you with your compliance requirements today?
+          Navigate 1,400+ regulatory obligations with ease. Generate compliance calendars, auto-fill forms, and never miss a deadline.
         </p>
       </motion.div>
     </div>

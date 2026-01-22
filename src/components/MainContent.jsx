@@ -4,19 +4,19 @@ import WelcomeCard from './WelcomeCard'
 import FileCard from './FileCard'
 import MeetingCard from './MeetingCard'
 import TaskCard from './TaskCard'
-import TaskList from './TaskList'
 import ChatInput from './ChatInput'
+import { FiCalendar, FiFileText } from 'react-icons/fi'
 
-const MainContent = () => {
+const MainContent = ({ sidebarCollapsed }) => {
   const [showContent, setShowContent] = useState(true)
   const [chatMessages, setChatMessages] = useState([])
 
-  const handleChatSubmit = (message) => {
-    if (message.trim()) {
+  const handleChatSubmit = (message, attachments = []) => {
+    if (message.trim() || attachments.length > 0) {
       // Hide content with parallax animation
       setShowContent(false)
       // Add message to chat
-      setChatMessages([...chatMessages, { text: message, sender: 'user' }])
+      setChatMessages([...chatMessages, { text: message, sender: 'user', attachments }])
     }
   }
 
@@ -65,24 +65,17 @@ const MainContent = () => {
               >
                 <MeetingCard />
                 <TaskCard 
-                  title="Conduct UX Research"
-                  description="Research user experience patterns"
+                  title="Generate Compliance Calendar"
+                  description="Get your personalized daily/monthly compliance schedule"
+                  icon={FiCalendar}
                 />
                 <TaskCard 
-                  title="Write a prospect email"
-                  description="Draft email for potential clients"
+                  title="Auto-fill GST Form"
+                  description="Use AI to fill forms using your existing business data"
+                  icon={FiFileText}
                 />
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30, scale: 0.95 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-6"
-              >
-                <TaskList />
-              </motion.div>
             </motion.div>
           ) : (
             <motion.div
@@ -90,7 +83,7 @@ const MainContent = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="min-h-[60vh] flex flex-col justify-center pb-20"
+              className="flex flex-col pb-20 pt-6"
             >
               <div className="space-y-4">
                 {chatMessages.map((msg, idx) => (
@@ -105,7 +98,21 @@ const MainContent = () => {
                         : 'bg-gray-700/20 border border-gray-600/30 max-w-md'
                     }`}
                   >
-                    <p className="text-gray-800 dark:text-white text-sm">{msg.text}</p>
+                    {msg.text && <p className="text-gray-800 dark:text-white text-sm mb-2">{msg.text}</p>}
+                    {msg.attachments && msg.attachments.length > 0 && (
+                      <div className="space-y-2">
+                        {msg.attachments.map((att, attIdx) => (
+                          <div key={attIdx} className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                            {att.preview ? (
+                              <img src={att.preview} alt={att.name} className="w-8 h-8 rounded object-cover" />
+                            ) : (
+                              <span>📄</span>
+                            )}
+                            <span>{att.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -114,7 +121,7 @@ const MainContent = () => {
         </AnimatePresence>
       </div>
       
-      <ChatInput onSubmit={handleChatSubmit} />
+      <ChatInput onSubmit={handleChatSubmit} sidebarCollapsed={sidebarCollapsed} />
     </div>
   )
 }
