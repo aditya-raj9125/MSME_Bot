@@ -56,33 +56,25 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
       animate={{ width: collapsed ? '80px' : '280px' }}
       className={`h-screen bg-gray-50 border-r border-gray-200 dark:bg-slate-950 dark:border-slate-800 flex flex-col overflow-hidden`}
     >
-      {/* Profile Section */}
+      {/* Profile Section - Button Removed */}
       <div className="p-4 border-b border-gray-200 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-          <div 
-            className="flex items-center gap-3 flex-1 cursor-pointer relative"
-            onClick={() => {
-              if (!collapsed) {
-                onViewProfile()
-              }
-            }}
-          >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-md">
-              <FiUser className="text-white" size={20} />
-            </div>
-            {!collapsed && (
-              <div className="flex-1">
-                <p className="text-gray-900 dark:text-gray-100 font-medium text-sm">Business Owner</p>
-                <p className="text-gray-600 dark:text-slate-400 text-xs">MSME Account</p>
-              </div>
-            )}
+        <div 
+          className="flex items-center gap-3 cursor-pointer relative overflow-hidden"
+          onClick={() => {
+            if (!collapsed) {
+              onViewProfile()
+            }
+          }}
+        >
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-md flex-shrink-0">
+            <FiUser className="text-white" size={20} />
           </div>
-          <button
-            onClick={onToggle}
-            className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center justify-center"
-          >
-            {collapsed ? <FiChevronRight size={18} /> : <FiChevronLeft size={18} />}
-          </button>
+          {!collapsed && (
+            <div className="flex-1 min-w-0">
+              <p className="text-gray-900 dark:text-gray-100 font-medium text-sm truncate">Business Owner</p>
+              <p className="text-gray-600 dark:text-slate-400 text-xs truncate">MSME Account</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -128,7 +120,7 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
                       <motion.button
                         key={idx}
                         whileHover={{ x: 4 }}
-                        className="w-full text-left px-2 py-1.5 text-sm text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 rounded transition-all"
+                        className="w-full text-left px-2 py-1.5 text-sm text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 rounded transition-all truncate"
                       >
                         {activity}
                       </motion.button>
@@ -139,6 +131,16 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Bottom Toggle Section - New Location */}
+      <div className={`p-4 border-t border-gray-200 dark:border-slate-800 flex ${collapsed ? 'justify-center' : 'justify-end'}`}>
+        <button
+          onClick={onToggle}
+          className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center justify-center"
+        >
+          {collapsed ? <FiChevronRight size={20} /> : <FiChevronLeft size={20} />}
+        </button>
       </div>
     </motion.div>
   )

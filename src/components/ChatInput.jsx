@@ -87,9 +87,6 @@ const ChatInput = ({ onSubmit, sidebarCollapsed }) => {
     setAttachments(newAttachments)
   }
 
-  // Calculate left margin based on sidebar state
-  const leftMargin = sidebarCollapsed ? '80px' : '280px'
-
   return (
     <>
       {/* Hidden file input - accepts both images and documents */}
@@ -106,8 +103,7 @@ const ChatInput = ({ onSubmit, sidebarCollapsed }) => {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="fixed bottom-3 z-10"
-        style={{ left: `calc(${leftMargin} + 1.5rem)`, right: '1.5rem' }}
+        className="w-full"
       >
         <form onSubmit={handleSubmit} className="relative">
           {/* Attachments preview */}
