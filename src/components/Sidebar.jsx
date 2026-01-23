@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
   FiHome, 
   FiMessageSquare, 
@@ -7,18 +7,19 @@ import {
   FiChevronRight,
   FiUser,
   FiLayout,
-  FiClock,
-  FiEye
+  FiClock
 } from 'react-icons/fi'
 
-const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
+// UPDATED: Accept onNavigate prop
+const Sidebar = ({ collapsed, onToggle, onViewProfile, googleUser, onNavigate }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false)
   const profileMenuRef = useRef(null)
 
   const menuItems = [
-    { icon: FiHome, label: 'Home', active: true },
-    { icon: FiLayout, label: 'Dashboard' },
-    { icon: FiMessageSquare, label: 'New Chat' },
+    // Added 'id' to identify pages easier
+    { icon: FiHome, label: 'Home', id: 'home' }, 
+    { icon: FiLayout, label: 'Dashboard', id: 'dashboard' },
+    { icon: FiMessageSquare, label: 'New Chat', id: 'chat' },
   ]
 
   const recentActivities = {
@@ -56,23 +57,32 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
       animate={{ width: collapsed ? '80px' : '280px' }}
       className={`h-screen bg-gray-50 border-r border-gray-200 dark:bg-slate-950 dark:border-slate-800 flex flex-col overflow-hidden`}
     >
-      {/* Profile Section - Button Removed */}
+      {/* Profile Section */}
       <div className="p-4 border-b border-gray-200 dark:border-slate-800">
         <div 
-          className="flex items-center gap-3 cursor-pointer relative overflow-hidden"
-          onClick={() => {
-            if (!collapsed) {
-              onViewProfile()
-            }
-          }}
+          className="flex items-center gap-3 cursor-pointer relative overflow-hidden group"
+          onClick={onViewProfile}
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-md flex-shrink-0">
-            <FiUser className="text-white" size={20} />
-          </div>
+          {googleUser?.picture ? (
+             <img 
+               src={googleUser.picture} 
+               alt="Profile" 
+               className="w-10 h-10 rounded-full border-2 border-white shadow-md flex-shrink-0 transition-transform group-hover:scale-105"
+             />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-md flex-shrink-0 transition-transform group-hover:scale-105">
+              <FiUser className="text-white" size={20} />
+            </div>
+          )}
+
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <p className="text-gray-900 dark:text-gray-100 font-medium text-sm truncate">Business Owner</p>
-              <p className="text-gray-600 dark:text-slate-400 text-xs truncate">MSME Account</p>
+              <p className="text-gray-900 dark:text-gray-100 font-medium text-sm truncate">
+                {googleUser?.name || 'Business Owner'}
+              </p>
+              <p className="text-gray-600 dark:text-slate-400 text-xs truncate">
+                {googleUser?.email || 'MSME Account'}
+              </p>
             </div>
           )}
         </div>
@@ -87,8 +97,10 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
               <motion.button
                 key={index}
                 whileHover={{ x: 4 }}
+                // UPDATED: Add onClick to handle navigation
+                onClick={() => item.id === 'home' && onNavigate && onNavigate('home')}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
-                  item.active
+                  item.id === 'home' // Simple active check
                     ? 'bg-blue-100 text-blue-600 border border-blue-200 dark:bg-blue-900/40 dark:text-blue-300 dark:border-blue-700'
                     : 'text-gray-800 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-slate-800 dark:hover:text-white'
                 }`}
@@ -133,7 +145,7 @@ const Sidebar = ({ collapsed, onToggle, onViewProfile }) => {
         )}
       </div>
 
-      {/* Bottom Toggle Section - New Location */}
+      {/* Bottom Toggle Section */}
       <div className={`p-4 border-t border-gray-200 dark:border-slate-800 flex ${collapsed ? 'justify-center' : 'justify-end'}`}>
         <button
           onClick={onToggle}

@@ -80,9 +80,19 @@ const ProfilePage = ({ userProfile, onSave, onBack }) => {
         <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm p-6 space-y-8">
           {/* Top section with avatar */}
           <div className="flex items-center gap-6 pb-6 border-b border-gray-200 dark:border-gray-800">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-              <FiUser className="text-white" size={36} />
-            </div>
+            {/* UPDATED: Profile Picture Rendering */}
+            {formData.picture ? (
+              <img 
+                src={formData.picture} 
+                alt="Profile" 
+                className="w-20 h-20 rounded-full border-2 border-white shadow-md object-cover"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                <FiUser className="text-white" size={36} />
+              </div>
+            )}
+            
             <div className="flex-1">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 {isEditing ? (

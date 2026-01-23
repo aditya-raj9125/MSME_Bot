@@ -127,7 +127,8 @@ const MainContent = ({ sidebarCollapsed }) => {
         </div>
       </div>
 
-      <div className="sticky bottom-0 z-20 shrink-0 bg-white/70 backdrop-blur-md border-t border-slate-200/60 dark:bg-slate-950/30 dark:border-slate-800/60">
+      {/* MODIFIED: Removed 'border-t border-slate-200/60 dark:border-slate-800/60' */}
+      <div className="sticky bottom-0 z-20 shrink-0 bg-white/70 backdrop-blur-md dark:bg-slate-950/30">
         <div className="max-w-7xl mx-auto px-6 pb-2 pt-1">
           <ChatInput onSubmit={handleChatSubmit} sidebarCollapsed={sidebarCollapsed} />
         </div>
