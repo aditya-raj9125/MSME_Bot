@@ -337,7 +337,7 @@ Be specific to their business type if mentioned.`;
         const location = entities.city || 'your city';
         
         return {
-          message: `🎉 **Exciting! Starting a ${businessType} in ${location}!**
+        message: `🎉 **Exciting! Starting a ${businessType} in ${location}!**
 
 To provide you with accurate compliance guidance, I need a few details:
 
@@ -362,11 +362,11 @@ To provide you with accurate compliance guidance, I need a few details:
 • Platform onboarding guide (Swiggy, Zomato, etc.)
 
 Please share the missing details so I can create your personalized compliance roadmap!`,
-          type: 'discovery',
-          data: {
-            businessProfile,
-            nextStep: 'readiness_check',
-            entities
+        type: 'discovery',
+        data: {
+          businessProfile,
+          nextStep: 'readiness_check',
+          entities
           }
         };
       }
