@@ -174,18 +174,6 @@ const ChatSidebar = () => {
 
   return (
     <>
-      {/* Toggle Button (Always Visible) */}
-      <button
-        onClick={toggleSidebar}
-        className="fixed top-4 left-4 z-50 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg hover:shadow-xl transition-all"
-      >
-        {isSidebarOpen ? (
-          <FiChevronLeft className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-        ) : (
-          <FiChevronRight className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-        )}
-      </button>
-
       {/* Sidebar */}
       <AnimatePresence>
         {isSidebarOpen && (
@@ -194,7 +182,7 @@ const ChatSidebar = () => {
             animate={{ x: 0 }}
             exit={{ x: -320 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed left-0 top-0 h-full w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col shadow-xl"
+            className="fixed left-0 top-16 h-[calc(100%-4rem)] w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40 flex flex-col shadow-xl"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
@@ -233,14 +221,32 @@ const ChatSidebar = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+            <div className="p-4 pb-16 border-t border-slate-200 dark:border-slate-800">
               <div className="text-xs text-slate-500 dark:text-slate-400 text-center">
                 {chatList.length} conversation{chatList.length !== 1 ? 's' : ''}
               </div>
             </div>
+
+            {/* Toggle Button - Bottom Right Corner of Sidebar */}
+            <button
+              onClick={toggleSidebar}
+              className="absolute bottom-6 right-4 p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg hover:shadow-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+            >
+              <FiChevronLeft className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Toggle Button when sidebar is closed */}
+      {!isSidebarOpen && (
+        <button
+          onClick={toggleSidebar}
+          className="fixed top-20 left-4 z-50 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg hover:shadow-xl transition-all"
+        >
+          <FiChevronRight className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+        </button>
+      )}
 
       {/* Overlay for mobile */}
       <AnimatePresence>

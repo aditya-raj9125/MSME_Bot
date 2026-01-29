@@ -10,8 +10,7 @@ const ChatGPTInterface = ({ userProfile }) => {
     messages,
     isLoading,
     activeChatId,
-    sendMessage,
-    isSidebarOpen
+    sendMessage
   } = useChatContext()
 
   const [inputMessage, setInputMessage] = useState('')
@@ -146,30 +145,7 @@ const ChatGPTInterface = ({ userProfile }) => {
   )
 
   return (
-    <div className={`flex flex-col h-full transition-all duration-300 ${
-      isSidebarOpen ? 'ml-80' : 'ml-0'
-    }`}>
-      {/* Header */}
-      <div className="flex-shrink-0 px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-base font-medium text-slate-900 dark:text-slate-100">
-              {activeChatId ? 'Chat' : 'New Conversation'}
-            </h1>
-            {userIntent && (
-              <p className="text-xs text-slate-600 dark:text-slate-400">
-                Intent: {userIntent.replace('_', ' ')}
-              </p>
-            )}
-          </div>
-          {activeChatId && (
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              {messages.length} messages
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className="flex flex-col h-full w-full">
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto px-4 py-3 bg-slate-50 dark:bg-slate-950">
         {messages.length === 0 ? (
